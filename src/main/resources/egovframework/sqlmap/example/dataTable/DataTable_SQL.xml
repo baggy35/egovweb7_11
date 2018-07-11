@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DataTable">
+
+	<select id="dataTableDAO.ajax" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+
+			SELECT
+				<iterate property="listColumns" conjunction=",">
+					$listColumns[]$
+				</iterate>
+			FROM $sTable$
+			WHERE 1=1
+			<isNotEmpty prepend="AND" property="sSearch">
+				NAME LIKE concat('%',#sSearch#,'%')
+			</isNotEmpty>
+			
+			ORDER BY $sOrderColumnName$ $sOrderDir$
+			LIMIT #nLength# OFFSET #nStart#		
+	</select>
+	
+	<select id="dataTableDAO.ajaxTotCnt" parameterClass="java.util.HashMap" resultClass="int">
+	
+			SELECT COUNT(*) totcnt
+					FROM $sTable$
+					WHERE 1=1
+			<isNotEmpty prepend="AND" property="sSearch">
+				NAME LIKE concat('%',#sSearch#,'%')
+			</isNotEmpty>
+	</select>
+	
+</sqlMap>

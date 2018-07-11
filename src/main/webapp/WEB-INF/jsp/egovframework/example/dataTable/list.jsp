@@ -29,7 +29,7 @@
 			"processing": true,
 			"serverSide": true,
 			"ajax": {
-				"url": "<c:url value='/ajax.dataTable.do'/>",
+				"url": "<c:url value='/ajax.do'/>",
 				"data": function ( d ) {
 					d.table = "SAMPLE";
 				}
@@ -52,7 +52,7 @@
 <body>
 	<div class="container">
 		<h1>게시글 목록</h1>
-		<table id="example" class="table table-striped table-bordered" >
+		<table style="100%" id="example" class="table table-striped table-bordered" >
 		</table>
 	</div>
 </body>
