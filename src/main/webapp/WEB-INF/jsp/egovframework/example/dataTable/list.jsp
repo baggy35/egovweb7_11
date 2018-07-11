@@ -31,15 +31,23 @@
 			"ajax": {
 				"url": "<c:url value='/ajax.do'/>",
 				"data": function ( d ) {
-					d.table = "SAMPLE";
+					d.table = "park";
 				}
 			},
 			"columns": [
-				{"title": "아이디", "data": "ID"},
-				{"title": "이름", "data": "NAME"},
-				{"title": "상세설명", "data": "DESCRIPTION"},
-				{"title": "사용여부", "data": "USE_YN"},
-				{"title": "등록자", "data": "REG_USER"},
+				{"title": "아이디", "data": "id"},
+				{"title": "코드", "data": "code"},
+				{"title": "이름", "data": "name"},
+				{"title": "유형코드", "data": "park_type_code"},
+				{"title": "도로명주소", "data": "address_road"},
+				{"title": "지번주소", "data": "address_jibun"},
+				{"title": "위도", "data": "latitude"},
+				{"title": "경도", "data": "longitude"},
+				{"title": "면적", "data": "area"},
+				{"title": "등록자ID", "data": "registered_id"},
+				{"title": "수정자ID", "data": "updated_id"},
+				{"title": "등록일자", "data": "registered_at"},
+				{"title": "수정일자", "data": "updated_at"}
 				
 			],
 			"order": [[1, 'asc']]
