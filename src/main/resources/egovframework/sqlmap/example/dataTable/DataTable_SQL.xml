@@ -3,7 +3,7 @@
 
 <sqlMap namespace="DataTable">
 
-	<select id="dataTableDAO.ajax" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	<select id="dataTableDAO.ajax" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
 
 			SELECT
 				<iterate property="listColumns" conjunction=",">
@@ -12,12 +12,24 @@
 			FROM $sTable$
 			WHERE 1=1
 			<isNotEmpty prepend="AND" property="sSearch">
-				NAME LIKE concat('%',#sSearch#,'%')
+			(1=0
+				<iterate property="lisSerchable">
+					or $lisSerchable[]$ like concat('%',#sSearch#,'%')
+				</iterate>
+				)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dateColumn">
+				<isNotEmpty property="dateStart">
+					<isNotEmpty property="dateEnd">
+					$dateColumn$ between #dateStart# and #dateEnd#
+					</isNotEmpty>
+				</isNotEmpty>
 			</isNotEmpty>
 			
 			ORDER BY $sOrderColumnName$ $sOrderDir$
 			LIMIT #nLength# OFFSET #nStart#		
 	</select>
+
 	
 	<select id="dataTableDAO.ajaxTotCnt" parameterClass="java.util.HashMap" resultClass="int">
 	
@@ -25,7 +37,18 @@
 					FROM $sTable$
 					WHERE 1=1
 			<isNotEmpty prepend="AND" property="sSearch">
-				NAME LIKE concat('%',#sSearch#,'%')
+			(1=0
+				<iterate property="lisSerchable">
+					or $lisSerchable[]$ like concat('%',#sSearch#,'%')
+				</iterate>
+				)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dateColumn">
+				<isNotEmpty property="dateStart">
+					<isNotEmpty property="dateEnd">
+					$dateColumn$ between #dateStart# and #dateEnd#
+					</isNotEmpty>
+				</isNotEmpty>
 			</isNotEmpty>
 	</select>
 	

@@ -39,14 +39,23 @@ public class DataTableController {
 		List listData=new ArrayList();
 		
 		
+		
+		
+		
 		//컬럼명 수집
 		List<String>listColumns=new ArrayList<String>();
+		
+		List<String> lisSerchable=new ArrayList<String>();
 		for(int i=0; ;i++){
 			String colName=req.getParameter("columns["+i+"][data]");
 			if(colName!=null && colName.length() > 0){
 				listColumns.add(colName);
 			}else{
 				break;
+			}
+			String colSearchable =req.getParameter("columns["+i+"][searchable]");
+			if("true".equalsIgnoreCase(colSearchable)){
+				lisSerchable.add(colName);
 			}
 		}
 		//기타 데이터수집
@@ -57,6 +66,10 @@ public class DataTableController {
 		String sOrderColumn=req.getParameter("order[0][column]");
 		String sOrderDir=req.getParameter("order[0][dir]");
 		String sSearch=req.getParameter("search[value]");
+		
+		String dateColumn=req.getParameter("dateColumn");
+		String dateStart=req.getParameter("dateStart");
+		String dateEnd=req.getParameter("dateEnd");
 		int nStart=0;
 		int nLength=10;
 		try{
@@ -84,6 +97,11 @@ public class DataTableController {
 		mapSearch.put("sOrderDir", sOrderDir);
 		mapSearch.put("sOrderColumnName", sOrderColumnName);
 		mapSearch.put("listColumns", listColumns);
+		mapSearch.put("lisSerchable", lisSerchable);
+		
+		mapSearch.put("dateColumn", dateColumn);
+		mapSearch.put("dateStart", dateStart);
+		mapSearch.put("dateEnd", dateEnd);
 		
 		listData=dataTableService.ajax(mapSearch);
 		
